@@ -1,0 +1,17 @@
+# prettier only takes a single --ignore-path, which means we can't point it
+# at .gitignore *and* .prettierignore; we have to duplicate the .gitignore list
+# here (yuk!)
+
+# -- .gitignore BEGIN --
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+# -- .gitignore END--
+
+package.json
+package-lock.json
