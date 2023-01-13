@@ -6,7 +6,7 @@ _**Does this repo/site need to exist?**_ No, of course not; see [the definition 
 
 _**So, like, why, then?**_ Well, putting the puppycam site together was a blast, but it’s only “live” for a 12-week stint every 2–3 years. What else am I going to do with the cameras and sensors in the meantime? Plus, when working remotely, there’s an arguable advantage to having something to share.
 
-----
+---
 
 ## TO-DO
 
@@ -16,7 +16,7 @@ _**So, like, why, then?**_ Well, putting the puppycam site together was a blast
 
 - [ ] Create [**weatherlink-proxy**](#TBD) (separate repo?) for outdoor temperature/weather?
 
-----
+---
 
 # create-svelte
 
