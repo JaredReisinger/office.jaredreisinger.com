@@ -1,6 +1,7 @@
 <script lang="ts">
   // import Video from '../components/Video.svelte';
   import NestVideo from '../components/NestVideo.svelte';
+  import SensorPush from '../components/SensorPush.svelte';
 </script>
 
 <svelte:head>
@@ -9,23 +10,20 @@
 
 <div class="side-by-side">
   <!-- https://video.nest.com/live/VuqBb1RtMN -->
-  <NestVideo
-    debug={false}
-    streamHost="stream-us1-charlie.dropcam.com"
-    uuid="9c06bf22fa9047559a39ced47953a9ec"
-    chunklistId="w234108287"
-    publicId="VuqBb1RtMN"
-  />
+  <NestVideo publicId="VuqBb1RtMN" />
   <!-- <Video
     debug
     src="https://livepeercdn.studio/hls/86d2ffdn93hrvwhk/index.m3u8"
     poster=""
   /> -->
   <div class="vertical temp-box">
-    <div class="temp">temp info...</div>
-    <div class="temp">temp info...</div>
-    <div class="temp">temp info...</div>
-    <div class="temp">temp info...</div>
+    <h3>Current office weather</h3>
+    <SensorPush name="office" />
+    <SensorPush name="humidor" />
+
+    <div class="meta">
+      <a href="/about">More about this site.</a>
+    </div>
   </div>
 </div>
 
@@ -53,6 +51,11 @@
 
   .temp-box {
     margin: 1rem;
+    min-width: 20rem;
+  }
+
+  .meta {
+    margin-top: 3rem;
   }
 
   @media (max-width: 750px) {

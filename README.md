@@ -10,9 +10,9 @@ _**So, like, why, then?**_ Well, putting the puppycam site together was a blast
 
 ## TO-DO
 
-- [ ] Split `Video.svelte` into `Video` and `NestVideo` to encapsulate the weird Nest logic... and then probably ignore it in lieu of just using the chunklist URL directly (in `Video`).
+- [X] Split `Video.svelte` into `Video` and `NestVideo` to encapsulate the weird Nest logic.
 
-- [ ] In [**sensorpush-proxy**](../sensorpush-proxy), have more-than-one named-sensor config, so that it can fetch/cache for "office", "humidor", etc.
+- [X] In [**sensorpush-proxy**](../sensorpush-proxy), have more-than-one named-sensor config, so that it can fetch/cache for "office", "humidor", etc.
 
 - [ ] Create [**weatherlink-proxy**](#TBD) (separate repo?) for outdoor temperature/weather?
 

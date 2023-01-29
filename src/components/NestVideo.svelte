@@ -1,47 +1,50 @@
 <script lang="ts">
   import Video from './Video.svelte';
 
-  export let streamHost: string;
-  export let uuid: string;
-  export let chunklistId: string;
   export let publicId: string;
 
   export let debug = false;
   export let dummy = false;
 
   // To discover the needed values for the stream host, uuid, chunklist, and
-  // public ID, just visit the "public" Nest URL and inspect the network
-  // traffic.
+  // public ID, use the `dropcam/cameras.get_by_public_token` API.  This doesn't
+  // support non-Nest CORS, so we bypass CORS using corsproxy.io.  In general,
+  // you should completely freak out upon seeing this: we're putting a *LOT* of
+  // trust in the proxy (which we do not control), and it *could* do anything.
+  // That said: the only thing we're passing is a public camera ID, and the
+  // response is JSON (not JSONP), so we don't do something dumb like `eval()`
+  // it.
+  $: infoUrl = `https://corsproxy.io/?https://video.nest.com/api/dropcam/cameras.get_by_public_token?token=${publicId}`;
 
-  // // Ideally we'd bootstrap up from *only* a Nest shared camera ID (token,
-  // // here called publicId) to the M3U8 playlist url.  Unfortunately,
-  // // Next/Google doesn't return the proper CORS headers to allow this to be
-  // //  done programatically (in a browser, at any rate).  For the record, this
-  // // is the flow that *would* happen.
-  // async function getCameraUrls(nestCameraId: string) {
-  //   console.log("getting stream for", nestCameraId);
-  //   const res = await fetch(
-  //     `https://video.nest.com/api/dropcam/cameras.get_by_public_token?token=${nestCameraId}`
-  //   );
-  //   console.log(res);
-  //   const info = await res.json();
-  //   const feed = info.items[0];
-  //   const cameraUuid = feed.uuid;
-  //   const streamHost = feed.live_stream_host;
-  //   const imageHost = feed.nexus_api_nest_domain_host;
-
-  //   const placeholderImage = `https://${imageHost}/get_image?uuid=${cameraUuid}&public=${nestCameraId}`;
-  //   const liveVideoFeed = `https://${streamHost}/nexus_aac/${cameraUuid}/playlist.m3u8?public=${nestCameraId}}`;
-
-  //   return { placeholderImage, liveVideoFeed };
-  // }
-
-  $: src = `https://${streamHost}/nexus_aac/${uuid}/chunklist_${chunklistId}.m3u8?public=${publicId}`;
-  $: poster = `https://nexusapi-us1.camera.home.nest.com/get_image?uuid=${uuid}&width=540&public=${publicId}`;
+  let src: string;
+  let poster: string;
 
   $: {
-    log(`using src ${src}`);
-    log(`using poster ${poster}`);
+    log(`using info ${infoUrl}`);
+
+    async function getInfo() {
+      const response = await fetch(infoUrl);
+      // console.log('response', response);
+      if (response.ok) {
+        const info = await response.json();
+        // console.log('info', info);
+        if (Array.isArray(info.items) && info.items.length === 1) {
+          const {
+            nexus_api_nest_domain_host: posterHost,
+            live_stream_host: streamHost,
+            uuid,
+          } = info.items[0];
+
+          src = `https://${streamHost}/nexus_aac/${uuid}/playlist.m3u8?public=${publicId}`;
+          poster = `https://${posterHost}/get_image?uuid=${uuid}&width=1280&public=${publicId}`;
+
+          log(`using src ${src}`);
+          log(`using poster ${poster}`);
+        }
+      }
+    }
+
+    getInfo();
   }
 
   let video: HTMLVideoElement;
@@ -57,7 +60,9 @@
 </script>
 
 <div class="wrapper fill-parent">
-  <Video {src} {poster} {debug} {dummy} />
+  {#if src && poster}
+    <Video {src} {poster} {debug} {dummy} />
+  {/if}
 
   {#if debug}
     <div class="debug">
