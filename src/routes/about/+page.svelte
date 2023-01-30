@@ -95,7 +95,7 @@
   </p>
 
   <div class="example video">
-    <NestVideo publicId="VuqBb1RtMN" chunklistId="w234108287" />
+    <NestVideo publicId="VuqBb1RtMN" />
   </div>
 
   <p>
@@ -228,9 +228,9 @@
     box-sizing: content-box;
   }
 
-  .example.auto {
+  /*.example.auto {
     width: fit-content;
-  }
+  }*/
 
   .video {
     height: 9em;

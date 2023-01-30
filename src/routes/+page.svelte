@@ -69,12 +69,12 @@
     }
   }
 
-  .temp {
+  /*.temp {
     min-width: 10rem;
     min-height: 3rem;
     border: 1px solid hsl(0, 0%, 70%);
     border-radius: 0.5rem;
     padding: 0.25rem;
     background-color: hsl(0, 0%, 90%);
-  }
+  }*/
 </style>
