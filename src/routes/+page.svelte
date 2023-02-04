@@ -1,7 +1,7 @@
 <script lang="ts">
   // import Video from '../components/Video.svelte';
-  import NestVideo from '../components/NestVideo.svelte';
-  import SensorPush from '../components/SensorPush.svelte';
+  import NestVideo from '$lib/components/NestVideo.svelte';
+  import SensorPush from '$lib/components/SensorPush.svelte';
 </script>
 
 <svelte:head>

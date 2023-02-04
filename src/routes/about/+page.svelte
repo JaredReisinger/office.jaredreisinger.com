@@ -1,9 +1,9 @@
 <script lang="ts">
-  import NestVideo from '../../components/NestVideo.svelte';
-  // import PuppyDetails from '../../components/PuppyDetails.svelte';
-  import SensorPush from '../../components/SensorPush.svelte';
-  // import Weather from '../../components/Weather.svelte';
-  // import LatestNews from "../../components/LatestNews.svelte";
+  import NestVideo from '$lib/components/NestVideo.svelte';
+  // import PuppyDetails from '$lib/components/PuppyDetails.svelte';
+  import SensorPush from '$lib/components/SensorPush.svelte';
+  // import Weather from '$lib/components/Weather.svelte';
+  // import LatestNews from '$lib/components/LatestNews.svelte';
 </script>
 
 <svelte:head>

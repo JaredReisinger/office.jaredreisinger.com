@@ -1,6 +1,6 @@
 <script lang="ts">
-  import SensorPush from '../../components/SensorPush.svelte';
-  import Weather from '../../components/Weather.svelte';
+  import SensorPush from '$lib/components/SensorPush.svelte';
+  import Weather from '$lib/components/Weather.svelte';
 </script>
 
 <svelte:head>
