@@ -162,9 +162,9 @@
 
   .debug {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 3%;
-    background-color: hsl(0, 0%, 90%);
+    /* background-color: hsl(0, 0%, 90%); */
     padding: 1em 0.5em 0.5em;
     font-size: 70%;
 

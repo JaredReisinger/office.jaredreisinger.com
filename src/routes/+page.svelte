@@ -35,7 +35,7 @@
     <button
       on:click={() => {
         letterbox = !letterbox;
-      }}>letterboxing {letterbox ? 'on' : 'off'}</button
+      }}>turn letterboxing {letterbox ? 'off' : 'on'}</button
     >
     <div class="meta">
       <a href="/about">More about this site.</a>

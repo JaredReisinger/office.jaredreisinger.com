@@ -261,7 +261,7 @@
 <style type="scss">
   .wrapper {
     margin: 1rem;
-    padding: clamp(0.1rem, calc((100vw - 320px) / 50), 2rem);
+    padding: clamp(0.5rem, calc((100vw - 320px) / 50), 2rem);
     max-width: 50em;
     margin: 0 auto;
   }

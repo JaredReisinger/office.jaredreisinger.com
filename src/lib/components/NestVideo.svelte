@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { afterUpdate } from 'svelte';
   import Video from './Video.svelte';
 
   export let publicId: string;
@@ -21,36 +22,38 @@
 
   let src: string;
   let poster: string;
+  
+  afterUpdate(() => { getInfo(infoUrl); });
+  
+  let urlPrev: string;
+  async function getInfo(url: string) {
+    if (url === urlPrev) {
+      log('same url, ignoring...');
+      return;
+    }
+    urlPrev = url;
+    log(`using url ${url}`);
+    const response = await fetch(url);
+    // console.log('response', response);
+    if (response.ok) {
+      const info = await response.json();
+      // console.log('info', info);
+      if (Array.isArray(info.items) && info.items.length === 1) {
+        const {
+          nexus_api_nest_domain_host: posterHost,
+          live_stream_host: streamHost,
+          uuid,
+        } = info.items[0];
 
-  $: {
-    log(`using info ${infoUrl}`);
+        src = `https://${streamHost}/nexus_aac/${uuid}/playlist.m3u8?public=${publicId}`;
+        poster = `https://${posterHost}/get_image?uuid=${uuid}&width=1280&public=${publicId}`;
 
-    async function getInfo() {
-      const response = await fetch(infoUrl);
-      // console.log('response', response);
-      if (response.ok) {
-        const info = await response.json();
-        // console.log('info', info);
-        if (Array.isArray(info.items) && info.items.length === 1) {
-          const {
-            nexus_api_nest_domain_host: posterHost,
-            live_stream_host: streamHost,
-            uuid,
-          } = info.items[0];
-
-          src = `https://${streamHost}/nexus_aac/${uuid}/playlist.m3u8?public=${publicId}`;
-          poster = `https://${posterHost}/get_image?uuid=${uuid}&width=1280&public=${publicId}`;
-
-          log(`using src ${src}`);
-          log(`using poster ${poster}`);
-        }
+        log(`using src ${src}`);
+        log(`using poster ${poster}`);
       }
     }
-
-    getInfo();
   }
 
-  // let video: HTMLVideoElement;
   let logMsgs: string[] = [];
 
   function log(msg: string) {

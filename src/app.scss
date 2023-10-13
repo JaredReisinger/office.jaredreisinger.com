@@ -14,8 +14,8 @@ html {
   font-weight: 350;
   // I *really* want the base sizes to be be ems, but calc() doesn't cooperate.
   font-size: clamp(
-    14px,
-    calc((14px + (20 - 14) / (1000 - 320) * (100vw - 320px))),
+    max(16px, 1em),
+    calc((16px + (20 - 16) / (1000 - 320) * (100vw - 320px))),
     20px
   );
   line-height: 1.6;
