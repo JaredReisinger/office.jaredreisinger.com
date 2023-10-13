@@ -4,6 +4,9 @@
   export let src: string;
   export let poster: string;
 
+  export let fit: string | undefined = 'cover';
+  export let position: string | undefined = undefined;
+
   export let debug = false;
   export let dummy = false;
 
@@ -93,6 +96,8 @@
     <video
       bind:this={video}
       class="fill-parent"
+      style:object-fit={fit}
+      style:object-position={position}
       controls
       preload="auto"
       muted
@@ -117,7 +122,7 @@
 <style type="scss">
   .fill-parent {
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
   }
 
   .wrapper {
@@ -129,6 +134,7 @@
     z-index: 100;
     background-color: hsl(200, 100%, 50%);
     color: white;
+    font-family: sans-serif;
     font-size: 80%;
     /* font-weight: 600; */
     letter-spacing: 0.025em;
@@ -140,14 +146,17 @@
   video {
     display: block;
   }
-
+  
   .dummy {
+    width: 100%;
+    height: 100%;
+    /* fake content color */
+    background-color: oklch(60% 20% 0);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: hsl(0, 0%, 50%);
-    color: hsl(0, 0%, 100%);
-    aspect-ratio: 1.6;
+    border: 1px solid red;
+    /* aspect-ratio: 1.6; */
     font-size: 2rem;
   }
 

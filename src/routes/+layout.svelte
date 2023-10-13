@@ -16,7 +16,7 @@
   $: {
     switch (pagePath) {
       case '/about':
-        titlePrefix = 'About - ';
+        titlePrefix = 'About ';
         pageDescription =
           'More than you want to know about this site and how it works.';
         pageImage = headImage;
@@ -26,13 +26,13 @@
       default:
         titlePrefix = '';
         pageDescription =
-          'A 24/7 live view out Jared’s office window, perhaps with some dogs.';
+          'A 24x7 live view out Jared’s office window, perhaps with some dogs.';
         pageImage = headImage;
         break;
     }
   }
 
-  $: pageTitle = `${titlePrefix}Jared Reisinger’s OfficeCam!`;
+  $: pageTitle = `${titlePrefix}Jared’s Office(Cam)!`;
 </script>
 
 <svelte:head>

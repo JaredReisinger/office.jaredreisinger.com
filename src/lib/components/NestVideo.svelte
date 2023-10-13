@@ -3,6 +3,9 @@
 
   export let publicId: string;
 
+  export let fit: string | undefined = 'cover';
+  export let position: string | undefined = undefined;
+
   export let debug = false;
   export let dummy = false;
 
@@ -61,7 +64,7 @@
 
 <div class="wrapper fill-parent">
   {#if src && poster}
-    <Video {src} {poster} {debug} {dummy} />
+    <Video {src} {poster} {fit} {position} {debug} {dummy} />
   {/if}
 
   {#if debug}
@@ -76,7 +79,7 @@
 <style type="scss">
   .fill-parent {
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
   }
 
   .wrapper {
@@ -85,9 +88,9 @@
 
   .debug {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
-    background-color: hsl(0, 0%, 90%);
+    /* background-color: hsl(0, 0%, 90%); */
     padding: 1em 0.5em 0.5em;
     font-size: 70%;
 

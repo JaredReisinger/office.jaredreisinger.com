@@ -1,12 +1,24 @@
-/* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
+/*
+  Variables and mixins from the src/variables.scss file are available here
+  without importing
+*/
+
+html,
 body {
   margin: 0;
-  /* font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
-  font-family: 'Encode Sans', Arial, Helvetica, sans-serif;
-  /* font-weight: 300; */
-  font-size: 14px;
-  line-height: 1.5;
-  /* color: #333; */
+  padding: 0;
+}
+
+html {
+  font-family: Literata, serif;
+  font-weight: 350;
+  // I *really* want the base sizes to be be ems, but calc() doesn't cooperate.
+  font-size: clamp(
+    14px,
+    calc((14px + (20 - 14) / (1000 - 320) * (100vw - 320px))),
+    20px
+  );
+  line-height: 1.6;
 }
 
 h1,
@@ -16,8 +28,7 @@ h4,
 h5,
 h6 {
   margin: 1.5em 0 0.5em 0;
-  font-weight: 700;
-  line-height: 1.2;
+  font-weight: 600;
 }
 
 h1:first-child,
@@ -30,42 +41,23 @@ h6:first-child {
 }
 
 a {
-  color: inherit;
-  text-decoration: dotted underline 1px;
-}
+  color: oklch(50% 0.1 235);
+  text-decoration: none;
 
-code {
-  font-family: Consolas, Menlo, Inconsolata, monospace;
-  font-size: calc(1em - 2px);
-  color: #555;
-  background-color: #f0f0f0;
-  padding: 0.1em 0.2em;
-  border-radius: 2px;
-}
-
-* {
-  transition: all 0.25s ease 0s;
-}
-
-@media (min-width: 400px) {
-  body {
-    font-size: 16.85px;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
-.note {
-  margin: 0;
+code {
+  font-family: 'Noto Sans Mono', monospace;
   font-size: 80%;
-  font-style: italic;
-  font-weight: 400;
-  color: hsl(0, 0%, 50%);
+  font-weight: 550;
 }
 
-h1 .note,
-h2 .note,
-h3 .note,
-h4 .note,
-h5 .note,
-h6 .note {
-  font-size: 70%;
+button,
+input,
+select,
+option {
+  font-family: inherit;
 }
