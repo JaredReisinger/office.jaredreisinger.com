@@ -47,7 +47,7 @@
     getInfo();
   }
 
-  let video: HTMLVideoElement;
+  // let video: HTMLVideoElement;
   let logMsgs: string[] = [];
 
   function log(msg: string) {
