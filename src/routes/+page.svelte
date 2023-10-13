@@ -28,8 +28,10 @@
   <!-- https://video.nest.com/live/VuqBb1RtMN -->
   <NestVideo publicId="VuqBb1RtMN" {fit} {position} />
   <div class="vertical temp-box">
-    <h3>Current office weather</h3>
+    <h3>Jared’s office weather</h3>
+
     <SensorPush name="office" />
+    
     <SensorPush name="humidor" />
 
     <button
