@@ -27,15 +27,15 @@
 
 <div class="relative w-full h-full bg-zinc-600 text-zinc-50">
   <!-- https://video.nest.com/live/VuqBb1RtMN -->
-  <NestVideo publicId="VuqBb1RtMN" class={videoClasses} dummy />
+  <NestVideo publicId="VuqBb1RtMN" class={videoClasses} />
   <div
-    class="absolute top-0 right-0 bg-zinc-600/60 p-4 rounded-bl-lg text-shadow flex flex-col gap-1 text-right"
+    class="absolute top-0 right-0 bg-zinc-600/60 p-4 rounded-bl-lg text-shadow flex flex-col gap-1 text-right xs:text-sm md:text-base lg:text-lg xl:text-xl"
   >
-    <h3 class="text-lg font-semibold">Jared’s office weather</h3>
+    <!-- <h3 class="font-bold mb-2">Jared’s office weather</h3> -->
     <SensorPush name="office" />
     <SensorPush name="humidor" />
 
-    <div class="text-right text-sm flex flex-col gap-2">
+    <div class="mt-2 text-right text-sm lg:text-base xl:text-base flex flex-col gap-2">
       <a
         role="button"
         class="text-blue-300 hover:text-blue-400 x-drop-shadow"
