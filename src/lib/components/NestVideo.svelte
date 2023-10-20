@@ -4,8 +4,8 @@
 
   export let publicId: string;
 
-  export let fit: string | undefined = 'cover';
-  export let position: string | undefined = undefined;
+  let classes: string = 'object-contain';
+  export { classes as class };
 
   export let debug = false;
   export let dummy = false;
@@ -22,11 +22,18 @@
 
   let src: string;
   let poster: string;
-  
-  afterUpdate(() => { getInfo(infoUrl); });
-  
+
+  afterUpdate(() => {
+    getInfo(infoUrl);
+  });
+
   let urlPrev: string;
   async function getInfo(url: string) {
+    if (dummy) {
+      src = 'UNUSED';
+      poster = 'UNUSED';
+      return;
+    }
     if (url === urlPrev) {
       log('same url, ignoring...');
       return;
@@ -65,44 +72,16 @@
   }
 </script>
 
-<div class="wrapper fill-parent">
+<div class="relative w-full h-full">
   {#if src && poster}
-    <Video {src} {poster} {fit} {position} {debug} {dummy} />
+    <Video {src} {poster} class={classes} {debug} {dummy} />
   {/if}
 
-  {#if debug}
-    <div class="debug">
+  {#if debug && !dummy}
+    <div class="debug-box right-0 bottom-0">
       {#each logMsgs as msg}
         <div>{msg}</div>
       {/each}
     </div>
   {/if}
 </div>
-
-<style type="scss">
-  .fill-parent {
-    width: 100%;
-    height: 100%;
-  }
-
-  .wrapper {
-    position: relative;
-  }
-
-  .debug {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    /* background-color: hsl(0, 0%, 90%); */
-    padding: 1em 0.5em 0.5em;
-    font-size: 70%;
-
-    /* div {
-      margin-bottom: 0.25em;
-    } */
-  }
-  /* nested isn't working? */
-  .debug div {
-    margin-bottom: 0.25em;
-  }
-</style>

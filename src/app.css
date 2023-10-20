@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  [type='checkbox'].btn-toggle {
+    --size: 1em;
+    --bg: theme(colors.zinc.400);
+    --fg: theme(colors.zinc.200);
+    --bg-active: theme(colors.blue.400); /*var(--bg);*/
+    --fg-active: var(--fg);
+    height: var(--size);
+    max-width: calc(2 * var(--size));
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
+    appearance: none;
+    outline-offset: 2px;
+    border: transparent;
+    border-radius: 0.5em;
+    width: calc(100% - 0.6em);
+    position: relative;
+
+    &::before {
+      content: '';
+      border-radius: var(--size);
+      background: var(--bg);
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      padding: 2px;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    &::after {
+      content: '';
+      width: calc(var(--size) - 4px);
+      height: calc(var(--size) - 4px);
+      aspect-ratio: 1;
+      background: var(--fg);
+      border-radius: 50%;
+      transition:
+        background 0.2s ease-out,
+        left 0.2s ease-out;
+      display: block;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      box-shadow:
+        0 0 1px #0006,
+        0 4px 2px #0000001a;
+    }
+
+    &:checked {
+      background-image: none;
+
+      &::before {
+        background: var(--bg-active);
+      }
+
+      &::after {
+        background: var(--fg-active);
+        left: calc(100% - var(--size) + 2px);
+      }
+    }
+  }
+
+  .debug-box {
+    @apply absolute bg-zinc-600/60 text-zinc-50 p-4 rounded-lg text-xs text-shadow
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow:
+      0 0 5px theme(colors.zinc.800),
+      0 0 5px theme(colors.zinc.800),
+      0 0 5px theme(colors.zinc.800);
+
+    & svg {
+      filter: drop-shadow(0 0 5px theme(colors.zinc.800))
+        drop-shadow(0 0 5px theme(colors.zinc.800));
+    }
+  }
+
+  .svg-shadow {
+    filter: drop-shadow(0 0 5px theme(colors.zinc.800))
+      drop-shadow(0 0 5px theme(colors.zinc.800));
+  }
+}
+
+/*
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+
+code {
+  font-family: 'Noto Sans Mono', monospace;
+  font-size: 80%;
+  font-weight: 550;
+}
+
+*/

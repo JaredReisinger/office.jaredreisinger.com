@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import headImage from '$lib/assets/jared-head.jpg';
-  import '../app.scss';
+  import '../app.css';
 
   $: pageUrl = $page.url.toString();
   $: pagePath = $page.route.id;
@@ -10,7 +10,7 @@
   let pageDescription: string;
   let pageImage: string;
 
-  // It would be great if pages coudl provide override open-graph headers, but
+  // It would be great if pages could provide override open-graph headers, but
   // it appears that we just end up with duplicates.  Until I figure out a way
   // to delegate the values to the page, this is centralized. :sad:
   $: {

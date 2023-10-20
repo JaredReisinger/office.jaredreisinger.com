@@ -11,7 +11,7 @@
   // optional meta-info
   export let precision: number = 0;
   export let temperatureUnits: string = '°F';
-  export let humidityUnits: string = '% RH';
+  export let humidityUnits: string = '%<span class="pl-1">RH<span>';
   export let at: string | DateTime | undefined = undefined;
 
   // format the temperature and humidity down to a fixed level of precision...
@@ -40,64 +40,23 @@
     <h3>{title}</h3>
   {/if} -->
 
-  <div class="weather">
-    <div class="main-line">
-      <div class="name">{name}</div>
-      <div class="measurements">
-        <div class="temperature">
-          {tempFmt}<span class="units">{temperatureUnits}</span>
+  <div class="max-w-sm">
+    <div class="flex gap-1 items-baseline justify-items-end justify-end">
+      <div class="text-right">{name}</div>
+      <div class="flex gap-1 font-mono text-xl font-semibold justify-end">
+        <div>
+          {tempFmt}<span class="font-light text-sm align-top">{@html temperatureUnits}</span>
         </div>
-        <div class="humidity">
-          {humidFmt}<span class="units">{humidityUnits}</span>
+        <div>
+          {humidFmt}<span class="font-light text-sm align-top">{@html humidityUnits}</span>
         </div>
       </div>
     </div>
     {#if observed}
-      <div class="note">At {observed}</div>
+      <div class="text-sm italic font-normal text-zinc-400">At {observed}</div>
     {/if}
     {#if observedRel}
-      <div class="note">({observedRel})</div>
+      <div class="text-sm italic font-normal text-zinc-400">({observedRel})</div>
     {/if}
   </div>
 {/if}
-
-<style type="scss">
-  .weather {
-    max-width: 20em;
-  }
-
-  .main-line {
-    display: flex;
-    /* margin: 1em 0; */
-    vertical-align: baseline;
-    align-items: baseline;
-  }
-
-  .name {
-    min-width: 5em;
-    vertical-align: baseline;
-    text-align: right;
-  }
-
-  .measurements {
-    flex: auto;
-    display: flex;
-    justify-content: space-evenly;
-    font-family: 'Noto Sans Mono';
-    font-size: 120%;
-    font-weight: 600;
-  }
-
-  .units {
-    font-size: 70%;
-    font-weight: 300;
-    vertical-align: text-top;
-  }
-
-  .note {
-    font-size: 80%;
-    font-style: italic;
-    font-weight: 400;
-    color: hsl(0, 0%, 50%);
-  }
-</style>

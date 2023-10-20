@@ -2,7 +2,6 @@
   import NestVideo from '$lib/components/NestVideo.svelte';
   // import PuppyDetails from '$lib/components/PuppyDetails.svelte';
   import SensorPush from '$lib/components/SensorPush.svelte';
-  // import Weather from '$lib/components/Weather.svelte';
   // import LatestNews from '$lib/components/LatestNews.svelte';
 </script>
 
@@ -10,8 +9,8 @@
   <title>About - office.jaredreisinger.com</title>
 </svelte:head>
 
-<div class="wrapper">
-  <h1>About office.jaredreisinger.com</h1>
+<div class="prose xs:prose-xs md:prose-md lg:prose-lg xl:prose-xl prose-zinc mx-auto my-8">
+  <h1>About this site</h1>
 
   <p>
     This stems from a previous site I did for the Ture Hounds PuppyCam. That
@@ -35,7 +34,7 @@
   </p>
 
   <p>
-    This site is composed of several loosly-connected pieces. In roughly the
+    This site is composed of several loosely-connected pieces. In roughly the
     order that you experience them, they are:
   </p>
   <ul>
@@ -110,9 +109,9 @@
     with full control of the styling and presentation:
   </p>
 
-  <div class="note">
-    <div class="left video">
-      <NestVideo publicId="VuqBb1RtMN" />
+  <div class="note flex gap-4">
+    <div class="">
+      <NestVideo publicId="VuqBb1RtMN" class="not-prose" />
     </div>
 
     Here, I’m pointing a camera out the window of my office, over the filing
@@ -124,7 +123,7 @@
 
   <h3 id="weather">“Weather” information</h3>
 
-  <div class="example right">
+  <div class="example float-right ml-8">
     <SensorPush name="office" />
   </div>
 
@@ -230,21 +229,21 @@
 
   <p>All of that, just to get this:</p>
 
-  <div class="example">
+  <div class="example mx-auto">
     <SensorPush name="office" />
   </div>
 
   <p>Wooo! 🎉 <em>(And yes, that’s a live and accurate reading!)</em></p>
 
   <div class="note" style="margin-top: 4rem">
-    <h3>Isn’t that enough? What else do you need to add?</h3>
+    <h3 class="mt-0 xs:mt-0 sm:mt-0 md:mt-0 lg:mt-0 xl:mt-0">Isn’t that enough? What else do you need to add?</h3>
 
     <p>
       That’s the thing about a gratuitous use of technology: how does one define
       “enough”?
     </p>
 
-    <p>
+    <p class="mb-0 xs:mb-0 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0">
       In any case, I’m debating adding actual outdoor weather as well; we have a
       <a
         href="https://www.davisinstruments.com"
@@ -258,58 +257,12 @@
   </div>
 </div>
 
-<style type="scss">
-  .wrapper {
-    margin: 1rem;
-    padding: clamp(0.5rem, calc((100vw - 320px) / 50), 2rem);
-    max-width: 50em;
-    margin: 0 auto;
-  }
-
+<style lang="postcss">
   .note {
-    margin: 0;
-    font-size: 84%;
-    font-style: italic;
-    font-weight: 400;
-    color: hsl(0, 0%, 50%);
-    background-color: hsl(0, 0%, 95%);
-    padding: 1em;
-    border-radius: 1em;
+    @apply sm:text-xs md:text-sm lg:text-base xl:text-lg italic font-normal text-zinc-500 bg-zinc-100 border border-zinc-300 p-4 rounded-lg;
   }
 
   .example {
-    width: 16rem;
-    max-width: 100%;
-    border: 1px solid hsl(0, 0%, 80%);
-    border-radius: 1em;
-    background-color: hsl(0, 0%, 80%, 0.2);
-    padding: 0.5em;
-    box-sizing: content-box;
-
-    &:not(.left):not(.right) {
-      margin: 1em auto;
-    }
-  }
-
-  .left {
-    float: left;
-    margin-right: 1em;
-  }
-
-  .right {
-    float: right;
-    margin-left: 1em;
-  }
-
-  .clear {
-    clear: both;
-  }
-
-  /*.example.auto {
-    width: fit-content;
-  }*/
-
-  .video {
-    height: 9rem;
+    @apply max-w-xs w-fit bg-zinc-100 border border-zinc-300 p-4 rounded-lg;
   }
 </style>

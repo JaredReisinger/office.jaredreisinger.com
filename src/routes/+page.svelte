@@ -1,21 +1,22 @@
 <script lang="ts">
+  import Icon from 'svelte-awesome';
+  import chevronRight from 'svelte-awesome/icons/chevronRight';
+  import chevronDown from 'svelte-awesome/icons/chevronDown';
+
   import NestVideo from '$lib/components/NestVideo.svelte';
   import SensorPush from '$lib/components/SensorPush.svelte';
 
+  let showMore = false;
   let letterbox = false;
 
-  const coverPos = 'bottom left';
-
-  let fit = 'cover';
-  let position = coverPos;
-
-  $: fit = letterbox ? 'contain' : 'cover';
-  $: position = letterbox ? 'top left' : coverPos;
+  $: videoClasses = letterbox
+    ? 'object-contain'
+    : 'object-cover object-left-bottom';
 </script>
 
 <svelte:head>
   <title>Jared’s Office!</title>
-  <style lang="css">
+  <style>
     html,
     body,
     body > div {
@@ -24,86 +25,41 @@
   </style>
 </svelte:head>
 
-<div class="wrapper">
+<div class="relative w-full h-full bg-zinc-600 text-zinc-50">
   <!-- https://video.nest.com/live/VuqBb1RtMN -->
-  <NestVideo publicId="VuqBb1RtMN" {fit} {position} />
-  <div class="vertical temp-box">
-    <h3>Jared’s office weather</h3>
-
+  <NestVideo publicId="VuqBb1RtMN" class={videoClasses} dummy />
+  <div
+    class="absolute top-0 right-0 bg-zinc-600/60 p-4 rounded-bl-lg text-shadow flex flex-col gap-1 text-right"
+  >
+    <h3 class="text-lg font-semibold">Jared’s office weather</h3>
     <SensorPush name="office" />
-    
     <SensorPush name="humidor" />
 
-    <button
-      on:click={() => {
-        letterbox = !letterbox;
-      }}>turn letterboxing {letterbox ? 'off' : 'on'}</button
-    >
-    <div class="meta">
-      <a href="/about">More about this site.</a>
+    <div class="text-right text-sm flex flex-col gap-2">
+      <a
+        role="button"
+        class="text-blue-300 hover:text-blue-400 x-drop-shadow"
+        href="#top"
+        on:click={() => {
+          showMore = !showMore;
+        }}
+        ><Icon data={showMore ? chevronDown : chevronRight} scale={0.75} /> more</a
+      >
+      {#if showMore}
+        <label
+          >letterboxed<input
+            type="checkbox"
+            class="ml-2 btn-toggle"
+            checked={letterbox}
+            on:click={() => {
+              letterbox = !letterbox;
+            }}
+          /></label
+        >
+        <a class="text-blue-300 hover:text-blue-400" href="/about"
+          >More about this site.</a
+        >
+      {/if}
     </div>
   </div>
 </div>
-
-<style lang="scss">
-  .wrapper {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    /* see https://oklch.com/#32.11,0,0,100 */
-    /* background-color: rgb(51, 51, 51); */
-    background-color: oklch(32.11% 0 0);
-    color: white;
-  }
-
-  .vertical {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .temp-box {
-    position: absolute;
-    top: 0;
-    right: 0;
-    /* min-width: 15rem; */
-    background-color: oklch(32.11% 0 0 / 60%);
-    padding: 1rem;
-    border-bottom-left-radius: 0.5rem;
-    /* text-shadow to help legibility over video, multiple times for saturation */
-    text-shadow:
-      0 0 5px black,
-      0 0 5px black,
-      0 0 5px black;
-
-    button {
-      margin-top: 1em;
-      /* background-color: oklch(50% 0.1 235); */
-      /* background-color: oklch(75% 0.1 235); */
-      background-color: oklch(50% 0 0 / 80%);
-      color: inherit;
-      border: none;
-      /* border: 1px solid transparent; */
-      padding: 0.5em 1em;
-      border-radius: 0.5em;
-      align-self: flex-end;
-
-      &:hover {
-        /* background-color: oklch(32.11% 0 0 / 90%); */
-        background-color: oklch(75% 0.1 235);
-        /* border: 1px solid oklch(75% 0.1 235); */
-      }
-    }
-
-    /* need a lighter link color over dark  */
-    a {
-      color: oklch(75% 0.1 235);
-    }
-  }
-
-  .meta {
-    margin-top: 1rem;
-    font-size: 84%;
-    text-align: right;
-  }
-</style>

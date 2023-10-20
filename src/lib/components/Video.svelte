@@ -4,8 +4,8 @@
   export let src: string;
   export let poster: string;
 
-  export let fit: string | undefined = 'cover';
-  export let position: string | undefined = undefined;
+  let classes: string = 'object-contain';
+  export { classes as class }
 
   export let debug = false;
   export let dummy = false;
@@ -87,17 +87,18 @@
   }
 </script>
 
-<div class="wrapper fill-parent">
-  <div class="live">LIVE</div>
-  <!-- svelte-ignore a11y-media-has-caption -->
+<div class="relative w-full h-full">
+  <div class="absolute m-3 px-2 bg-cyan-500 text-zinc-50 rounded font-sans not-italic text-sm tracking-wider">LIVE</div>
   {#if dummy}
-    <div class="dummy"><div>[video goes here]</div></div>
+    <img
+      alt="video placeholder"
+      src="/video-placeholder.png"
+      class={'w-full h-full ' + classes}
+    />
   {:else}
     <video
       bind:this={video}
-      class="fill-parent"
-      style:object-fit={fit}
-      style:object-position={position}
+      class={'w-full h-full ' + classes}
       controls
       preload="auto"
       muted
@@ -110,70 +111,11 @@
     </video>
   {/if}
 
-  {#if debug}
-    <div class="debug">
+  {#if debug && !dummy}
+    <div class="debug-box left-0 bottom-0">
       {#each logMsgs as msg}
         <div>{msg}</div>
       {/each}
     </div>
   {/if}
 </div>
-
-<style type="scss">
-  .fill-parent {
-    width: 100%;
-    height: 100%;
-  }
-
-  .wrapper {
-    position: relative;
-  }
-
-  .live {
-    position: absolute;
-    z-index: 100;
-    background-color: hsl(200, 100%, 50%);
-    color: white;
-    font-family: sans-serif;
-    font-size: 80%;
-    /* font-weight: 600; */
-    letter-spacing: 0.025em;
-    margin: 0.75em;
-    padding: 0 0.5em;
-    border-radius: 0.25em;
-  }
-
-  video {
-    display: block;
-  }
-  
-  .dummy {
-    width: 100%;
-    height: 100%;
-    /* fake content color */
-    background-color: oklch(60% 20% 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid red;
-    /* aspect-ratio: 1.6; */
-    font-size: 2rem;
-  }
-
-  .debug {
-    position: absolute;
-    bottom: 0;
-    left: 3%;
-    /* background-color: hsl(0, 0%, 90%); */
-    padding: 1em 0.5em 0.5em;
-    font-size: 70%;
-
-    /* div {
-      margin-bottom: 0.25em;
-    } */
-  }
-  /* nested isn't working? */
-  .debug div {
-    margin-bottom: 0.25em;
-  }
-</style>
